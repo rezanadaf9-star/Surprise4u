@@ -34,11 +34,46 @@ input,textarea{width:100%;border:1px solid #f3c0d8;background:rgba(255,255,255,.
 .modal{position:fixed;inset:0;background:rgba(70,30,50,.4);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:20px;z-index:120}.modal.show{display:flex}.modal-card{width:min(92vw,520px);max-height:88vh;overflow:auto;background:#fff7fb;border-radius:28px;padding:30px;box-shadow:0 30px 100px rgba(60,20,50,.3);position:relative;text-align:center}.modal-close{position:absolute;right:14px;top:10px;border:0;background:transparent;font-size:2rem;color:#a05a7d;cursor:pointer}.modal-card img{max-height:430px;max-width:100%;object-fit:contain}.modal-message{color:#765568;line-height:1.65;font-size:1rem}.status{min-height:24px;font-size:.85rem;color:#a04b74;display:flex;justify-content:center;align-items:center;gap:7px;line-height:1.35}.status.success{color:#16804b;font-weight:800}.status.error{color:#b4234d}.status.sending{color:#8a5872}.status.demo{color:#2d7b52}.success-icon{width:20px;height:20px;display:inline-grid;place-items:center;border-radius:50%;background:#19a463;color:#fff;font-size:.72rem;font-weight:900;box-shadow:0 4px 10px rgba(25,164,99,.25)}.confetti{position:fixed;width:8px;height:14px;z-index:110;pointer-events:none;animation:confetti 1.3s ease-out forwards}.dress-reveal{animation:dressReveal 1s cubic-bezier(.2,.8,.2,1) both}
 @keyframes screenIn{from{opacity:0;transform:translateY(15px) scale(.99)}to{opacity:1;transform:none}}@keyframes nextWrapPop{0%{opacity:0;transform:translateX(-50%) translateY(14px) scale(.8)}70%{transform:translateX(-50%) translateY(-3px) scale(1.04)}100%{opacity:1;transform:translateX(-50%) scale(1)}}@keyframes nextButtonGlow{0%,100%{box-shadow:0 14px 34px rgba(194,76,143,.28),0 0 0 0 rgba(255,113,176,.35)}50%{box-shadow:0 18px 42px rgba(194,76,143,.38),0 0 0 10px rgba(255,113,176,0)}}@keyframes nextButtonPop{0%{opacity:0;transform:translateX(-50%) translateY(14px) scale(.72)}70%{transform:translateX(-50%) translateY(-3px) scale(1.06)}100%{opacity:1;transform:translateX(-50%) scale(1)}}@keyframes nextButtonRing{0%{transform:scale(.98);opacity:.75}100%{transform:scale(1.08);opacity:0}}@keyframes float{from{transform:translateY(110vh)}to{transform:translateY(-20vh)}}@keyframes balloonFloat{0%,100%{transform:translateY(0) rotate(-3deg) scale(var(--balloon-scale))}50%{transform:translateY(-18px) rotate(4deg) scale(var(--balloon-scale))}}@keyframes balloonBurst{0%{transform:scale(var(--balloon-scale))}45%{transform:scale(calc(var(--balloon-scale) * 1.16)) rotate(3deg)}100%{transform:scale(.2);opacity:0}}@keyframes fragmentFly{0%{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0)}100%{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(.2) rotate(var(--rot))}}@keyframes messagePulse{50%{filter:drop-shadow(0 0 12px rgba(255,112,176,.32))}}@keyframes boxShake{25%{transform:translate(-50%,-50%) rotate(-2deg)}50%{transform:translate(-50%,-50%) rotate(2deg)}75%{transform:translate(-50%,-50%) rotate(-1deg)}}@keyframes heartBeat{50%{transform:scale(1.08)}}@keyframes softFloat{50%{transform:translateY(-5px)}}@keyframes productFromBox{0%{opacity:0;transform:translateY(110px) scale(.72)}65%{opacity:1;transform:translateY(-8px) scale(1.04)}100%{opacity:1;transform:translateY(0) scale(1)}}@keyframes confetti{to{transform:translate(var(--x),var(--y)) rotate(620deg);opacity:0}}@keyframes giftBoxExit{0%{opacity:1;transform:translate(-50%,-50%)}100%{opacity:0;transform:translate(-50%,110%) scale(.86)}}@keyframes dressReveal{0%{opacity:0;transform:scale(.75) rotate(-8deg)}55%{opacity:1;transform:scale(1.08) rotate(3deg)}100%{opacity:1;transform:scale(1) rotate(0)}}
 @media(max-width:700px){
-  .screen{padding:60px 12px 80px}.section-copy{top:45px}.glass-card{padding:28px 19px;border-radius:24px}.lead{font-size:.95rem}
-  .balloon-area{height:59vh;margin-top:100px}.balloon{width:62px;height:82px}.balloon-string{height:55px;top:75px}.balloon-fragment{width:11px;height:15px}
-  .chocolate-area{gap:12px;margin-top:108px;min-height:250px}.choc{width:104px;height:170px}.choc-body{width:90px;height:108px;left:7px}.choc-cover{font-size:.55rem}.choc-shadow{width:84px}
+  html,body{width:100%;min-height:100%;overflow:hidden}
+  .app,.stage{height:100dvh;min-height:100dvh;max-height:100dvh;overflow:hidden}
+  .screen{height:100dvh;min-height:100dvh;max-height:100dvh;overflow:hidden;padding:0 12px;align-items:stretch;justify-content:center}
+  .section-copy{top:45px;left:12px;right:12px}.glass-card{padding:28px 19px;border-radius:24px}.lead{font-size:.95rem}
+
+  /* Mobile Step 01: keep the entire balloon experience inside the viewport. */
+  #balloons.screen{display:none;position:relative}
+  #balloons.screen.active{display:flex}
+  #balloons .section-copy{top:42px}
+  .balloon-area{position:absolute;left:12px;right:12px;top:132px;bottom:112px;width:auto;height:auto;margin:0}
+  .balloon{width:62px;height:82px}.balloon-string{height:55px;top:75px}.balloon-fragment{width:11px;height:15px}
+  #balloonNextWrap{position:absolute;left:50%;bottom:20px;transform:translateX(-50%);width:min(92vw,420px);max-width:92vw}
+  #balloonNextWrap.ready{transform:translateX(-50%)}
+  #balloonNextWrap .step-next-hint{font-size:.75rem;line-height:1.2;white-space:normal}
+  #balloonNextWrap .step-next-btn{font-size:.86rem;min-height:42px;padding:9px 22px}
+
+  /* Mobile Step 02: use the same viewport-contained layout. */
+  #chocolates.screen{display:none;position:relative}
+  #chocolates.screen.active{display:flex}
+  #chocolates .section-copy{top:42px}
+  .chocolate-area{position:absolute;left:12px;right:12px;top:155px;bottom:126px;width:auto;height:auto;min-height:0;margin:0;gap:12px;align-items:center}
+  .choc{width:min(30vw,104px);height:min(170px,25vh)}.choc-body{width:90px;height:108px;left:7px}.choc-cover{font-size:.55rem}.choc-shadow{width:84px}
+  #chocolateNextWrap{position:absolute;left:50%;bottom:20px;transform:translateX(-50%);width:min(92vw,420px);max-width:92vw}
+  #chocolateNextWrap.ready{transform:translateX(-50%)}
+  #chocolateNextWrap .step-next-hint{font-size:.75rem;line-height:1.2;white-space:normal}
+  #chocolateNextWrap .step-next-btn{font-size:.86rem;min-height:42px;padding:9px 22px}
+
   .gem-area{margin-top:110px;gap:5px}.gem{width:85px;height:110px}
-  .gift-scene{height:530px;margin-top:92px}.gift-box{width:180px;height:145px;top:48%}.gift-box.open{top:80%}.box-body{height:106px}.box-lid{height:35px}.gift-contents{top:18%}.products{gap:5px;margin-top:20px}.product{width:calc((100vw - 40px)/5);height:112px;padding:5px;border-radius:13px}.product img{height:78px}.product span{font-size:.82rem;height:18px;line-height:18px}.instruction{font-size:.8rem}.typed-copy{font-size:.96rem;line-height:1.48;min-height:0;max-height:calc(100vh - 265px)}.footer{font-size:.68rem}.primary-btn,.secondary-btn{min-height:48px}.step-next-wrap{bottom:46px;max-width:92vw}.gift-screen .step-next-wrap{bottom:38px}.step-next-hint{font-size:.75rem;white-space:normal}.step-next-btn{font-size:.86rem;min-height:42px;padding:9px 22px}.balloon-next{bottom:auto;max-width:92vw;padding:10px 18px;font-size:.9rem}.eyebrow{font-size:.64rem}.modal-card{padding:28px 20px}.modal-card img{max-height:52vh}
+  .gift-scene{height:530px;margin-top:92px}.gift-box{width:180px;height:145px;top:48%}.gift-box.open{top:80%}.box-body{height:106px}.box-lid{height:35px}.gift-contents{top:18%}.products{gap:5px;margin-top:20px}.product{width:calc((100vw - 40px)/5);height:112px;padding:5px;border-radius:13px}.product img{height:78px}.product span{font-size:.82rem;height:18px;line-height:18px}.instruction{font-size:.8rem}.typed-copy{font-size:.96rem;line-height:1.48;min-height:0;max-height:calc(100dvh - 265px)}.footer{font-size:.68rem}.primary-btn,.secondary-btn{min-height:48px}.step-next-wrap{bottom:46px;max-width:92vw}.gift-screen .step-next-wrap{bottom:38px}.step-next-hint{font-size:.75rem;white-space:normal}.step-next-btn{font-size:.86rem;min-height:42px;padding:9px 22px}.eyebrow{font-size:.64rem}.modal-card{padding:28px 20px}.modal-card img{max-height:52dvh}
 }
+@media(max-width:380px){
+  #balloons .section-copy,#chocolates .section-copy{top:34px}
+  #balloons .section-copy h2,#chocolates .section-copy h2{font-size:1.55rem;margin-bottom:8px}
+  #balloons .section-copy>p:last-child,#chocolates .section-copy>p:last-child{font-size:.9rem}
+  .balloon-area{top:126px;bottom:106px}
+  .chocolate-area{top:145px;bottom:118px;gap:7px}
+  .choc{width:28vw;height:150px}.choc-body{transform-origin:center}
+  #balloonNextWrap,#chocolateNextWrap{bottom:14px}
+  #balloonNextWrap .step-next-btn,#chocolateNextWrap .step-next-btn{padding:8px 18px;min-height:40px}
+}
+
 @media(min-width:701px){.screen{padding-left:40px;padding-right:40px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important}}

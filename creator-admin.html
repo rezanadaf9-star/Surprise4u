@@ -142,8 +142,27 @@ input{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:13
     recipients.forEach(r=>{
       const re=events.filter(e=>e.recipient_id===r.recipient_id),rm=messages.filter(m=>m.recipient_id===r.recipient_id);
       const people=new Map();
-      re.forEach(e=>{const k=key(e.recipient_id,e.visitor_id,e.session_id);if(!people.has(k))people.set(k,{id:e.visitor_id||'unknown',nickname:e.nickname||'Nickname not entered',events:[]});people.get(k).events.push(e)});
-      rm.forEach(m=>{const k=key(m.recipient_id,m.visitor_id,m.session_id);if(!people.has(k))people.set(k,{id:m.visitor_id||'unknown',nickname:m.nickname||'Nickname not entered',events:[]});people.get(k).events.push({...m,event_type:'message_record',detail:{message:m.message},created_at:m.created_at,visit_number:m.visit_number})});
+      re.forEach(e=>{
+        const k=key(e.recipient_id,e.visitor_id,e.session_id);
+        if(!people.has(k)) people.set(k,{id:e.visitor_id||'unknown',nickname:'',events:[]});
+        const person=people.get(k);
+        if(e.nickname) person.nickname=e.nickname;
+        person.events.push(e);
+      });
+      rm.forEach(m=>{
+        const k=key(m.recipient_id,m.visitor_id,m.session_id);
+        if(!people.has(k)) people.set(k,{id:m.visitor_id||'unknown',nickname:'',events:[]});
+        const person=people.get(k);
+        if(m.nickname) person.nickname=m.nickname;
+        person.events.push({...m,event_type:'message_record',detail:{message:m.message},created_at:m.created_at,visit_number:m.visit_number});
+      });
+      people.forEach(person=>{
+        if(!person.nickname){
+          const nicknameEvent=person.events.find(e=>e.event_type==='nickname_entered' && e.detail?.nickname);
+          if(nicknameEvent) person.nickname=nicknameEvent.detail.nickname;
+        }
+        if(!person.nickname) person.nickname='Nickname not entered';
+      });
 
       const article=document.createElement('article');article.className='recipient';
       const base=new URL('index.html',location.href);base.search='';const link=base.href+'?to='+encodeURIComponent(r.recipient_id);
