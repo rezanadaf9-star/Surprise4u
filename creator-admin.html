@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Creator Command Center • Pink Surprise</title>
+  <meta name="description" content="Private creator analytics dashboard." />
+  <meta name="robots" content="noindex,nofollow,noarchive" />
+  <!-- Nadaf Reza favicon / app / sharing icon package -->
+  <link rel="icon" href="site-icons/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="16x16" href="site-icons/favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="site-icons/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="site-icons/favicon-48x48.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="site-icons/apple-touch-icon.png" />
+  <link rel="manifest" href="site-icons/site.webmanifest" />
+  <meta name="application-name" content="A Little Surprise" />
+  <meta name="apple-mobile-web-app-title" content="Surprise 💗" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#ffd6e7" />
+  <meta name="msapplication-TileColor" content="#ffd6e7" />
+  <meta name="msapplication-TileImage" content="site-icons/icon-192.png" />
+
+  <!-- Link preview / website sharing metadata -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="A Little Surprise" />
+  <meta property="og:title" content="Creator Command Center • Pink Surprise" />
+  <meta property="og:description" content="Private creator analytics dashboard." />
+  <meta property="og:image" content="site-icons/og-image.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Creator Command Center • Pink Surprise" />
+  <meta name="twitter:description" content="Private creator analytics dashboard." />
+  <meta name="twitter:image" content="site-icons/og-image.png" />
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--bg:#070711;--panel:#10101d;--panel2:#151528;--line:#292942;--text:#f7f2f7;--muted:#9894ad;--pink:#ff5c9d;--purple:#a66bff;--cyan:#65d8ff;--green:#32d583;--red:#ff6b7a;--gold:#ffd166;--shadow:0 24px 80px rgba(0,0,0,.45)}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:radial-gradient(circle at 15% 5%,rgba(166,107,255,.14),transparent 28%),radial-gradient(circle at 90% 20%,rgba(255,92,157,.12),transparent 25%),linear-gradient(135deg,#06060d,#0b0b17 55%,#080812)}
+body{padding:24px}.wrap{max-width:1400px;margin:auto}.hidden{display:none!important}
+.panel{background:linear-gradient(145deg,rgba(22,22,39,.94),rgba(11,11,22,.94));border:1px solid var(--line);box-shadow:var(--shadow);border-radius:24px;padding:24px;backdrop-filter:blur(18px)}
+.login{max-width:440px;margin:9vh auto}.brand{font-weight:950;font-size:28px;letter-spacing:-.03em}.kicker{font-size:11px;letter-spacing:.18em;font-weight:900;color:var(--pink);text-transform:uppercase}.sub,.muted{color:var(--muted)}.sub{font-size:13px;line-height:1.55}
+.field{display:grid;gap:7px;margin:15px 0}.field label{font-size:12px;font-weight:800;color:#c9c5d8}
+input{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:13px;background:#0a0a14;color:var(--text);outline:none}input:focus{border-color:var(--pink);box-shadow:0 0 0 4px rgba(255,92,157,.1)}
+.btn{border:1px solid transparent;border-radius:12px;padding:11px 15px;font-weight:850;cursor:pointer;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;box-shadow:0 10px 28px rgba(255,92,157,.16)}.btn.secondary{background:#121222;border-color:var(--line);box-shadow:none}.btn.small{padding:8px 11px;font-size:12px}
+.status{min-height:20px;font-size:13px;margin-top:10px}.error{color:var(--red)}.ok{color:var(--green)}
+.top{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:20px}.actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:16px 0}.stat{background:linear-gradient(145deg,#121222,#0d0d19);border:1px solid var(--line);border-radius:18px;padding:15px}.stat b{display:block;font-size:25px;letter-spacing:-.04em}.stat span{display:block;color:var(--muted);font-size:11px;margin-top:4px}
+.recipient{margin-top:16px;padding:18px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,rgba(20,20,35,.96),rgba(10,10,18,.96))}
+.recipient-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}.recipient h2{margin:0 0 5px}.id{color:var(--pink);font-size:11px;font-weight:800}.link{margin-top:8px;font-size:11px;color:#aaa6bb;word-break:break-all;background:#090913;border:1px solid #1e1e32;border-radius:9px;padding:8px}
+.rename{display:flex;gap:7px;margin-top:10px}.rename input{max-width:270px;padding:9px 10px;font-size:12px}.people{display:grid;gap:12px;margin-top:15px}
+.person{border:1px solid #25253b;border-radius:18px;padding:15px;background:linear-gradient(145deg,#121220,#0d0d18)}
+.person-head{display:flex;justify-content:space-between;gap:12px}.nick{font-weight:900;font-size:17px}.meta{font-size:11px;color:var(--muted);line-height:1.55}.pill{font-size:10px;padding:5px 8px;border-radius:999px;background:#19192a;border:1px solid #30304a;color:#c7c2d7;white-space:nowrap}
+.visits{display:grid;gap:9px;margin-top:12px}.visit{border:1px solid #25253a;border-radius:14px;background:#0a0a13;padding:12px}.visit-head{display:flex;justify-content:space-between;gap:10px;align-items:center}.visit-title{font-weight:850;font-size:12px}.chips{display:flex;flex-wrap:wrap;gap:6px;margin:9px 0}.chip{font-size:10px;padding:5px 7px;border-radius:999px;border:1px solid #2d2d45;background:#131322;color:#c8c3d8}.section{margin-top:10px}.section-title{font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#bdb8cc;margin-bottom:6px}.items{display:flex;flex-wrap:wrap;gap:6px}.item{font-size:10px;padding:6px 8px;border-radius:8px;background:#111b17;border:1px solid #173d2b;color:#7de5ad}.item.no{background:#14131d;border-color:#29283a;color:#777389}.message{border-left:3px solid var(--pink);padding:8px 10px;background:#12101a;border-radius:0 9px 9px 0;font-size:12px;margin-top:6px;white-space:pre-wrap}.timeline{max-height:320px;overflow:auto;border-top:1px solid #222237;margin-top:8px;padding-top:7px}.event{display:grid;grid-template-columns:135px 1fr;gap:9px;padding:7px 0;border-bottom:1px dashed #222237;font-size:11px}.event time{color:#777389}.event b{color:#eee}.json{color:#8f8aa0;word-break:break-word;margin-top:2px}
+.empty{color:var(--muted);padding:30px;text-align:center;border:1px dashed var(--line);border-radius:14px}.note{font-size:11px;line-height:1.6;color:var(--muted);margin-top:14px}
+@media(max-width:1050px){.stats{grid-template-columns:repeat(3,1fr)}}@media(max-width:700px){body{padding:12px}.top,.recipient-head,.person-head{flex-direction:column}.actions{justify-content:flex-start}.stats{grid-template-columns:repeat(2,1fr)}.event{grid-template-columns:1fr;gap:2px}.rename{width:100%}.rename input{max-width:none;flex:1}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<section id="loginPanel" class="panel login">
+  <div class="kicker">PRIVATE CREATOR AREA</div>
+  <div class="brand">Surprise Command Center</div>
+  <p class="sub">Admin-only analytics for visitors, visits, interactions, gift openings, personal-message reads, and replies.</p>
+  <form id="loginForm">
+    <div class="field"><label>Admin email</label><input id="email" type="email" autocomplete="username" required></div>
+    <div class="field"><label>Password</label><input id="password" type="password" autocomplete="current-password" required></div>
+    <button class="btn" type="submit">Sign in</button>
+    <div id="loginStatus" class="status"></div>
+  </form>
+  <div class="note">Analytics reads are protected by Supabase Row Level Security. Never put a service-role key in this site.</div>
+</section>
+
+<main id="dashboard" class="hidden">
+<header class="top">
+  <div><div class="kicker">CREATOR COMMAND CENTER</div><div class="brand">Your Surprise Visitors</div><div class="sub">Every stored interaction is grouped by recipient → visitor → visit.</div></div>
+  <div class="actions"><button id="refreshBtn" class="btn secondary">↻ Refresh</button><button id="logoutBtn" class="btn secondary">Log out</button></div>
+</header>
+<section class="stats">
+  <div class="stat"><b id="statRecipients">0</b><span>Recipients</span></div>
+  <div class="stat"><b id="statVisitors">0</b><span>Unique visitors</span></div>
+  <div class="stat"><b id="statVisits">0</b><span>Total visits</span></div>
+  <div class="stat"><b id="statMessages">0</b><span>Replies</span></div>
+  <div class="stat"><b id="statGiftClicks">0</b><span>Gift opens</span></div>
+  <div class="stat"><b id="statEvents">0</b><span>Total events</span></div>
+</section>
+<div id="dashboardStatus" class="status"></div>
+<section id="recipients"></section>
+</main>
+</div>
+
+<script src="config.js"></script>
+<script>
+(() => {
+  const cfg=window.SURPRISE_CONFIG||{};
+  const $=s=>document.querySelector(s);
+  let client=null, events=[], messages=[], recipients=[];
+
+  const esc=v=>String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+  const fmt=v=>new Date(v).toLocaleString([],{dateStyle:'short',timeStyle:'medium'});
+  const setLogin=(m,c='')=>{$('#loginStatus').textContent=m;$('#loginStatus').className='status '+c};
+  const setDash=(m,c='')=>{$('#dashboardStatus').textContent=m;$('#dashboardStatus').className='status '+c};
+
+  if(!cfg.supabaseUrl||!cfg.supabaseAnonKey){setLogin('Add Supabase URL and public anon/publishable key to config.js first.','error');$('#loginForm button').disabled=true;return}
+  client=window.supabase.createClient(cfg.supabaseUrl,cfg.supabaseAnonKey);
+
+  async function loadData(){
+    setDash('Loading analytics…');
+    const [ev,msg,rec]=await Promise.all([
+      client.from('visitor_events').select('*').order('created_at',{ascending:true}).limit(20000),
+      client.from('visitor_messages').select('*').order('created_at',{ascending:true}).limit(10000),
+      client.from('surprise_recipients').select('*').order('recipient_id')
+    ]);
+    if(ev.error||msg.error||rec.error){setDash((ev.error||msg.error||rec.error).message,'error');return}
+    events=ev.data||[];messages=msg.data||[];recipients=rec.data||[];
+    render();setDash('Updated '+new Date().toLocaleString(),'ok');
+  }
+
+  const key=(rid,vid,sid)=>`${rid}::${vid||sid||'unknown'}`;
+
+  async function renameRecipient(id){
+    const input=document.querySelector(`[data-name-input="${CSS.escape(id)}"]`);
+    const name=(input?.value||'').trim();
+    if(!name){setDash('Recipient name cannot be empty.','error');return}
+    const {error}=await client.from('surprise_recipients').update({name,updated_at:new Date().toISOString()}).eq('recipient_id',id);
+    if(error){setDash(error.message,'error');return}
+    setDash(`Updated ${name}. New visits will use the new name.`,'ok');await loadData();
+  }
+
+  function render(){
+    $('#statRecipients').textContent=recipients.length;
+    $('#statVisitors').textContent=new Set(events.filter(e=>e.visitor_id).map(e=>key(e.recipient_id,e.visitor_id,e.session_id))).size;
+    $('#statVisits').textContent=new Set(events.filter(e=>e.session_id).map(e=>`${e.recipient_id}::${e.session_id}`)).size;
+    $('#statMessages').textContent=messages.length;
+    $('#statGiftClicks').textContent=events.filter(e=>e.event_type==='gift_item_clicked').length;
+    $('#statEvents').textContent=events.length;
+
+    const root=$('#recipients');root.innerHTML='';
+    if(!recipients.length){root.innerHTML='<div class="empty">No recipients found. Run the supplied schema SQL first.</div>';return}
+
+    recipients.forEach(r=>{
+      const re=events.filter(e=>e.recipient_id===r.recipient_id),rm=messages.filter(m=>m.recipient_id===r.recipient_id);
+      const people=new Map();
+      re.forEach(e=>{const k=key(e.recipient_id,e.visitor_id,e.session_id);if(!people.has(k))people.set(k,{id:e.visitor_id||'unknown',nickname:e.nickname||'Nickname not entered',events:[]});people.get(k).events.push(e)});
+      rm.forEach(m=>{const k=key(m.recipient_id,m.visitor_id,m.session_id);if(!people.has(k))people.set(k,{id:m.visitor_id||'unknown',nickname:m.nickname||'Nickname not entered',events:[]});people.get(k).events.push({...m,event_type:'message_record',detail:{message:m.message},created_at:m.created_at,visit_number:m.visit_number})});
+
+      const article=document.createElement('article');article.className='recipient';
+      const base=new URL('index.html',location.href);base.search='';const link=base.href+'?to='+encodeURIComponent(r.recipient_id);
+      article.innerHTML=`<div class="recipient-head"><div><h2>${esc(r.name)} <span class="id">#${esc(r.recipient_id)}</span></h2><div class="sub">${people.size} unique visitor${people.size===1?'':'s'} · ${re.length} tracked events · ${rm.length} reply${rm.length===1?'':'ies'}</div><div class="link">${esc(link)}</div><div class="rename"><input data-name-input="${esc(r.recipient_id)}" value="${esc(r.name)}" maxlength="60"><button class="btn small" data-rename="${esc(r.recipient_id)}">Save name</button></div></div><span class="pill">${esc(r.updated_at?fmt(r.updated_at):'No update time')}</span></div><div class="people"></div>`;
+      article.querySelector(`[data-rename="${CSS.escape(r.recipient_id)}"]`).onclick=()=>renameRecipient(r.recipient_id);
+      const peopleRoot=article.querySelector('.people');
+
+      if(!people.size){peopleRoot.innerHTML='<div class="empty">No one has visited this link yet.</div>'}
+      else [...people.values()].forEach((p,idx)=>{
+        const all=p.events.slice().sort((a,b)=>new Date(a.created_at)-new Date(b.created_at));
+        const visits=new Map();
+        all.forEach(e=>{const n=e.visit_number||1;if(!visits.has(n))visits.set(n,[]);visits.get(n).push(e)});
+        const person=document.createElement('div');person.className='person';
+        person.innerHTML=`<div class="person-head"><div><div class="nick">${esc(p.nickname)}</div><div class="meta">Visitor ID: ${esc(p.id)}<br>${all.length} stored events · ${visits.size} visit${visits.size===1?'':'s'}</div></div><span class="pill">${idx+1}/${people.size}</span></div><div class="visits"></div>`;
+        const visitsRoot=person.querySelector('.visits');
+
+        [...visits.entries()].sort((a,b)=>a[0]-b[0]).forEach(([visitNo,ve])=>{
+          const visit=document.createElement('div');visit.className='visit';
+          const counts={};ve.forEach(e=>counts[e.event_type]=(counts[e.event_type]||0)+1);
+          const chips=Object.entries(counts).map(([k,v])=>`<span class="chip">${esc(k.replaceAll('_',' '))}: ${v}</span>`).join('');
+          const gifts=ve.filter(e=>e.event_type==='gift_item_clicked').map(e=>e.detail?.item).filter(Boolean);
+          const giftUnique=[...new Set(gifts)];
+          const read=ve.some(e=>e.event_type==='personal_message_viewed');
+          const sent=messages.some(m=>m.recipient_id===r.recipient_id&&(m.visitor_id===p.id)&&(m.visit_number===visitNo));
+          const visitMessages=rm.filter(m=>m.visitor_id===p.id&&m.visit_number===visitNo);
+          const first=ve[0]?.created_at,last=ve[ve.length-1]?.created_at;
+          visit.innerHTML=`<div class="visit-head"><div class="visit-title">Visit #${esc(visitNo)} <span class="meta">${first?fmt(first):''}${last&&last!==first?' → '+fmt(last):''}</span></div><span class="pill">${ve.length} events</span></div>
+            <div class="chips">${chips||'<span class="chip">No event data</span>'}</div>
+            <div class="section"><div class="section-title">Gift cards opened</div><div class="items">${giftUnique.length?giftUnique.map(x=>`<span class="item">✓ ${esc(x)}</span>`).join(''):'<span class="item no">None</span>'}</div></div>
+            <div class="section"><div class="section-title">Personal message</div><div class="items"><span class="item ${read?'':'no'}">${read?'✓ Read':'Not read'}</span></div></div>
+            <div class="section"><div class="section-title">Your-turn reply</div><div class="items"><span class="item ${sent?'':'no'}">${sent?'✓ Sent':'Not sent'}</span></div>${visitMessages.map(m=>`<div class="message">${esc(m.message)}<div class="meta">${fmt(m.created_at)}</div></div>`).join('')}</div>
+            <div class="section"><div class="section-title">Exact activity</div><div class="timeline">${ve.map(e=>`<div class="event"><time>${fmt(e.created_at)}</time><div><b>${esc(e.event_type)}</b>${e.detail&&Object.keys(e.detail).length?`<div class="json">${esc(JSON.stringify(e.detail))}</div>`:''}</div></div>`).join('')}</div></div>`;
+          visitsRoot.appendChild(visit);
+        });
+        peopleRoot.appendChild(person);
+      });
+      root.appendChild(article);
+    });
+  }
+
+  $('#loginForm').addEventListener('submit',async e=>{
+    e.preventDefault();setLogin('Signing in…');
+    const {error}=await client.auth.signInWithPassword({email:$('#email').value.trim(),password:$('#password').value});
+    if(error){setLogin(error.message,'error');return}
+    $('#loginPanel').classList.add('hidden');$('#dashboard').classList.remove('hidden');await loadData();
+  });
+  $('#refreshBtn').onclick=loadData;
+  $('#logoutBtn').onclick=async()=>{await client.auth.signOut();location.reload()};
+  client.auth.getSession().then(({data})=>{if(data.session){$('#loginPanel').classList.add('hidden');$('#dashboard').classList.remove('hidden');loadData()}});
+})();
+</script>
+</body>
+</html>

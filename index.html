@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#ff75ad" />
+  <meta name="description" content="A small digital surprise, made especially for you. 🌸" />
+  <title>A Small Gift For You 💗</title>
+  <!-- Nadaf Reza favicon / app / sharing icon package -->
+  <link rel="icon" href="site-icons/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="16x16" href="site-icons/favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="site-icons/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="site-icons/favicon-48x48.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="site-icons/apple-touch-icon.png" />
+  <link rel="manifest" href="site-icons/site.webmanifest" />
+  <meta name="application-name" content="A Little Surprise" />
+  <meta name="apple-mobile-web-app-title" content="Surprise 💗" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#ffd6e7" />
+  <meta name="msapplication-TileColor" content="#ffd6e7" />
+  <meta name="msapplication-TileImage" content="site-icons/icon-192.png" />
+
+  <!-- Link preview / website sharing metadata -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="A Little Surprise" />
+  <meta property="og:title" content="A Small Gift For You 💗" />
+  <meta property="og:description" content="A small digital surprise, made especially for you. 🌸" />
+  <meta property="og:image" content="site-icons/og-image.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="A Small Gift For You 💗" />
+  <meta name="twitter:description" content="A small digital surprise, made especially for you. 🌸" />
+  <meta name="twitter:image" content="site-icons/og-image.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app" class="app">
+    <div class="ambient ambient-1"></div><div class="ambient ambient-2"></div>
+    <div id="particles" class="particles" aria-hidden="true"></div>
+
+    <main id="stage" class="stage">
+      <section id="welcome" class="screen active">
+        <div class="welcome-card glass-card">
+          <div class="tiny-badge">A tiny digital surprise ✨</div>
+          <h1>Hey, <span id="knownName">XYZ</span>! 🌸</h1>
+          <p class="lead">I know your name… but tell me something.</p>
+          <h2>What can I call you? 💗</h2>
+          <p class="hint">Your nickname or what you like to be called</p>
+          <form id="nicknameForm">
+            <input id="nicknameInput" maxlength="30" autocomplete="off" placeholder="Enter your nickname" required />
+            <button class="primary-btn" type="submit">Continue ✨</button>
+          </form>
+          <p class="micro">No right answer. Just type whatever feels like you. 😊</p>
+        </div>
+      </section>
+
+      <section id="intro" class="screen">
+        <div class="center-content">
+          <div class="floating-heart">♡</div>
+          <p class="eyebrow">FOR <span data-nickname></span></p>
+          <h1>A Small Gift<br><em>For You</em> 🎁</h1>
+          <p class="lead">Nothing complicated. Just a few pretty things, a little fun, and maybe something to make you smile.</p>
+          <button class="primary-btn" data-next="balloons">Open Your Surprise 🎁</button>
+        </div>
+      </section>
+
+      <section id="balloons" class="screen interactive-screen">
+        <div class="section-copy">
+          <p class="eyebrow">STEP 01</p>
+          <h2>A little happiness first… 🎈</h2>
+          <p>✨ Tap a balloon to pop it! ✨</p>
+        </div>
+        <div id="balloonArea" class="balloon-area" aria-label="Balloon popping area"></div>
+        <div id="balloonNextWrap" class="step-next-wrap hidden">
+          <div class="step-next-hint">👀 Curious about what's next? Tap here…</div>
+          <button id="balloonNext" class="secondary-btn step-next-btn">Go to Next</button>
+        </div>
+      </section>
+
+      <section id="chocolates" class="screen interactive-screen chocolate-screen">
+        <div class="section-copy">
+          <p class="eyebrow">STEP 02</p>
+          <h2>Something sweet 🍫</h2>
+          <p>🍫 Tap a chocolate to unwrap it!</p>
+        </div>
+        <div id="chocolateArea" class="chocolate-area" aria-label="Chocolate unwrapping area"></div>
+        <div id="chocolateNextWrap" class="step-next-wrap hidden">
+          <div class="step-next-hint">✨ One last step… please tap here</div>
+          <button id="chocolateNext" class="secondary-btn step-next-btn">Go to Next</button>
+        </div>
+      </section>
+
+      <section id="gift" class="screen gift-screen">
+        <div class="section-copy">
+          <p class="eyebrow">STEP 03</p>
+          <h2>Your biggest surprise 🎁</h2>
+          <p id="giftInstruction">🎁 Tap the gift box to open it!</p>
+        </div>
+
+        <div id="giftScene" class="gift-scene">
+          <div id="giftBox" class="gift-box" role="button" tabindex="0" aria-label="Open gift box">
+            <div class="box-lid"><span></span></div>
+            <div class="box-body"><div class="ribbon-v"></div><div class="ribbon-h"></div></div>
+            <div class="box-glow"></div>
+            <div class="box-light"></div>
+          </div>
+
+          <div id="giftContents" class="gift-contents hidden">
+            <p class="instruction">✨ Tap any item to explore it ✨</p>
+            <div class="products">
+              <button class="product folded" data-product="dress"><img src="assets/folded-dress.png" alt="Folded dress gift"><span>👗</span></button>
+              <button class="product" data-product="shoes"><img src="assets/shoes.png" alt="Golden shoes gift"><span>👠</span></button>
+              <button class="product" data-product="earrings"><img src="assets/earings.png" alt="Gold earrings gift"><span>💎</span></button>
+              <button class="product" data-product="handbag"><img src="assets/handbag.png" alt="White handbag gift"><span>👜</span></button>
+              <button class="product" data-product="perfume"><img src="assets/perfume.png" alt="Pink perfume gift"><span>🌷</span></button>
+            </div>
+          </div>
+          <div id="giftNextWrap" class="step-next-wrap hidden">
+            <div class="step-next-hint">💗 One more step… one last step for the final stage</div>
+            <button id="giftNext" class="secondary-btn step-next-btn">Go to Last Step</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="message" class="screen">
+        <div class="message-card glass-card">
+          <p class="eyebrow">JUST A LITTLE NOTE</p>
+          <h2><span data-nickname></span> 💗</h2>
+          <div class="typed-copy" id="typedCopy"></div>
+          <button id="messageNext" class="secondary-btn hidden">One last thing… 👀</button>
+        </div>
+      </section>
+
+      <section id="hint" class="screen">
+        <div class="center-content">
+          <div class="big-heart">♥</div>
+          <p class="eyebrow">ONE LAST THING</p>
+          <h1>Maybe I don't say it often…</h1>
+          <p class="lead">but I genuinely enjoy having you around.</p>
+          <p class="subtle-line">That's probably enough said for now. 😌</p>
+          <button id="replyNext" class="primary-btn">Your turn 💌</button>
+        </div>
+      </section>
+
+      <section id="reply" class="screen">
+        <div class="reply-card glass-card">
+          <p class="eyebrow">YOUR TURN</p>
+          <h1>Okay, <span data-nickname></span>… 👀</h1>
+          <p>What did you think?</p>
+          <p class="hint">Be honest… I can handle it 😂</p>
+          <textarea id="replyInput" maxlength="1000" placeholder="Write something here… (optional)"></textarea>
+          <button id="sendReply" class="primary-btn">Send Message 💌</button>
+          <p id="replyStatus" class="status"></p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">Made with ✨ by <strong>Nadaf</strong></footer>
+    <div id="toast" class="toast" role="status"></div>
+    <div id="modal" class="modal" aria-hidden="true">
+      <div class="modal-card">
+        <button id="modalClose" class="modal-close" aria-label="Close">×</button>
+        <div id="modalBody"></div>
+      </div>
+    </div>
+  </div>
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
