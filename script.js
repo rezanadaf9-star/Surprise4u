@@ -118,7 +118,7 @@
         "Kabhi kabhi life mein kitni bhi problems ho, phir bhi apni smile mat khona. Aur haan, aaj ke din toh bilkul bhi nahi 😂",
         "I hope ye chhoti si cheez tumhare face pe smile le aaye. Tumhara birthday hai, toh aaj ka din thoda extra special toh banta hai na. 🫶🏻",
         "Once again, happy birthday Pakeezahhh! Apna khayal rakhna, khush rehna aur aise hi rehna. 💗",
-        "— Nadaf Reza"
+        "—-- Nadaf Reza"
       ],
       gunchasanam: [
         "Happy Boyfriend Day! 💗 (sorry kal tha)",
