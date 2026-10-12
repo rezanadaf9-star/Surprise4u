@@ -169,6 +169,85 @@
   $$('[data-nickname]').forEach(el => el.textContent = "you");
   document.title = `A Small Gift For ${state.knownName} 💗`;
 
+  // Lightweight sound effects generated with Web Audio (no extra audio files).
+  // Browsers allow playback after the visitor's first tap/click.
+  let soundContext;
+  function getSoundContext() {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return null;
+    if (!soundContext) soundContext = new AudioCtx();
+    if (soundContext.state === "suspended") soundContext.resume().catch(() => {});
+    return soundContext;
+  }
+
+  function tone(ctx, frequency, start, duration, type = "sine", volume = 0.12, endFrequency = null) {
+    const oscillator = ctx.createOscillator();
+    const gain = ctx.createGain();
+    oscillator.type = type;
+    oscillator.frequency.setValueAtTime(frequency, start);
+    if (endFrequency) oscillator.frequency.exponentialRampToValueAtTime(Math.max(1, endFrequency), start + duration);
+    gain.gain.setValueAtTime(0.0001, start);
+    gain.gain.exponentialRampToValueAtTime(volume, start + Math.min(0.012, duration / 3));
+    gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+    oscillator.connect(gain);
+    gain.connect(ctx.destination);
+    oscillator.start(start);
+    oscillator.stop(start + duration + 0.02);
+  }
+
+  function noiseBurst(ctx, start, duration, volume, filterType = "highpass", cutoff = 900) {
+    const length = Math.max(1, Math.floor(ctx.sampleRate * duration));
+    const buffer = ctx.createBuffer(1, length, ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < length; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / length);
+    const source = ctx.createBufferSource();
+    const filter = ctx.createBiquadFilter();
+    const gain = ctx.createGain();
+    source.buffer = buffer;
+    filter.type = filterType;
+    filter.frequency.value = cutoff;
+    gain.gain.setValueAtTime(volume, start);
+    gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+    source.connect(filter);
+    filter.connect(gain);
+    gain.connect(ctx.destination);
+    source.start(start);
+    source.stop(start + duration);
+  }
+
+  function playSound(kind) {
+    try {
+      const ctx = getSoundContext();
+      if (!ctx) return;
+      const now = ctx.currentTime + 0.015;
+      if (kind === "balloon") {
+        noiseBurst(ctx, now, 0.12, 0.42, "highpass", 650);
+        tone(ctx, 180, now, 0.11, "triangle", 0.18, 58);
+        tone(ctx, 1050, now + 0.012, 0.035, "square", 0.035, 380);
+      } else if (kind === "unwrap") {
+        // Soft crinkly paper, rather than a harsh plastic crackle.
+        noiseBurst(ctx, now, 0.19, 0.12, "highpass", 1250);
+        noiseBurst(ctx, now + 0.075, 0.15, 0.075, "bandpass", 2400);
+        tone(ctx, 620, now + 0.03, 0.08, "sine", 0.025, 430);
+      } else if (kind === "gift") {
+        // Short celebratory sparkle/chime.
+        [[523.25, 0], [659.25, 0.09], [783.99, 0.18], [1046.5, 0.29]].forEach(([f, d]) => tone(ctx, f, now + d, 0.42, "sine", 0.105));
+        tone(ctx, 392, now + 0.05, 0.38, "triangle", 0.055);
+      } else if (kind === "card") {
+        noiseBurst(ctx, now, 0.10, 0.045, "highpass", 1700);
+        tone(ctx, 698.46, now + 0.025, 0.24, "sine", 0.075);
+        tone(ctx, 880, now + 0.085, 0.28, "sine", 0.055);
+      } else if (kind === "thankyou") {
+        // Gentle, warm three-note thank-you flourish.
+        [[659.25, 0], [783.99, 0.13], [987.77, 0.27]].forEach(([f, d]) => tone(ctx, f, now + d, 0.48, "sine", 0.10));
+        tone(ctx, 523.25, now + 0.31, 0.55, "triangle", 0.045);
+      }
+    } catch (error) {
+      // Sound is decorative; it must never block the surprise experience.
+      console.debug("Sound effect unavailable:", error);
+    }
+  }
+
   function loadSupabase() {
     if (!cfg.enableAnalytics || !cfg.supabaseUrl || !cfg.supabaseAnonKey) return;
     const script = document.createElement("script");
@@ -380,6 +459,7 @@
 
       b.addEventListener("click", () => {
         if (b.classList.contains("popping")) return;
+        playSound("balloon");
         const rect = b.getBoundingClientRect();
         createBalloonFragments(b, i);
         b.classList.add("popping");
@@ -441,6 +521,7 @@
 
       b.addEventListener("click", () => {
         if (b.classList.contains("open")) return;
+        playSound("unwrap");
         const rect = b.getBoundingClientRect();
         b.classList.add("open");
 
@@ -493,6 +574,7 @@
   function openGift() {
     if (giftOpened) return;
     giftOpened = true;
+    playSound("gift");
     $("#giftBox").classList.add("open");
     $("#giftInstruction").textContent = "✨ Your gifts are here — tap any item to explore it ✨";
     logEvent("gift_box_opened");
@@ -525,6 +607,7 @@
     if (!giftOpened) return;
     openedProducts.add(key);
     const info = productInfo[key];
+    playSound("card");
 
     logEvent("gift_item_clicked", { item: key, title: info.title, message: info.text });
 
@@ -632,7 +715,11 @@
         logEvent("message_send_failed", { length: text.length, error: error.message });
       } else {
         status.className = "status success";
-        status.innerHTML = '<span class="success-icon" aria-hidden="true">✓</span><span>Message sent 💗</span>';
+        status.innerHTML = '<span class="success-icon" aria-hidden="true">✓</span><span>Message sent 💗 Thank you!</span>';
+        // Hide the input and button only after Supabase confirms the insert.
+        $("#replyInput").hidden = true;
+        $("#sendReply").hidden = true;
+        playSound("thankyou");
         logEvent("message_submitted", { length: text.length });
       }
     } else {

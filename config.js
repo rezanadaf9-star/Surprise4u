@@ -30,7 +30,7 @@ window.SURPRISE_CONFIG = {
   // Leave blank while testing locally; the website still works without Supabase.
   supabaseUrl: "https://wgbkjhvgoijyocygjvjc.supabase.co",
   supabaseAnonKey: "sb_publishable_hbhuY7AAxX0AhwPrqDJ_GA_-LqPH-uh",
-  enableAnalytics: false,
+  enableAnalytics: true,
 
   // Optional: public Supabase Storage bucket URL ending in /storage/v1/object/public/surprise-assets
   // Leave blank to use the optimized local WebP files in assets/.
