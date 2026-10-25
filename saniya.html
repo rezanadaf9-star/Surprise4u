@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#1a0510" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Saniya, ye sirf tumhare liye 🤍</title>
+  <link rel="icon" href="site-icons/favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" sizes="180x180" href="site-icons/apple-touch-icon.png" />
+  <meta property="og:title" content="Saniya, ye sirf tumhare liye 🤍" />
+  <meta property="og:description" content="Ek chhoti si baat, dil se. 🌹" />
+  <meta property="og:image" content="site-icons/og-image.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="saniya.css" />
+</head>
+<body>
+  <div id="app" class="app">
+    <div class="glow g1"></div><div class="glow g2"></div>
+    <div id="rain" class="rain" aria-hidden="true"></div>
+
+    <main class="stage">
+
+      <!-- 1. START -->
+      <section id="start" class="screen active">
+        <div class="center">
+          <div class="heart-beat">🤍</div>
+          <p class="eyebrow">sirf tumhare liye</p>
+          <h1>Saniya<span class="script">,</span><br><em>ye tumhare liye hai</em></h1>
+          <p class="lead">Thoda time nikaal ke, akele mein, aaram se poora dekhna.<br>Aur haan, sound on rakhna 🎧</p>
+          <button class="btn primary" data-next="balloons">Shuru karein 🌹</button>
+        </div>
+      </section>
+
+      <!-- 2. HEART BALLOONS -->
+      <section id="balloons" class="screen play">
+        <div class="section-copy">
+          <p class="eyebrow">STEP 01</p>
+          <h2>Pehle thodi si khushi 🎈</h2>
+          <p>Dil ko tap karo ✨</p>
+        </div>
+        <div id="balloonArea" class="area"></div>
+        <div id="balloonNextWrap" class="next-wrap hidden">
+          <p class="next-hint">👀 Aage kya hai? Tap karo…</p>
+          <button class="btn ghost" data-next="chocolates">Aage chalo</button>
+        </div>
+      </section>
+
+      <!-- 3. CHOCOLATES -->
+      <section id="chocolates" class="screen play">
+        <div class="section-copy">
+          <p class="eyebrow">STEP 02</p>
+          <h2>Thodi si mithaas 🍫</h2>
+          <p>Chocolate kholo</p>
+        </div>
+        <div id="chocArea" class="area choc-area"></div>
+        <div id="chocNextWrap" class="next-wrap hidden">
+          <p class="next-hint">✨ Bas ek aur cheez…</p>
+          <button class="btn ghost" data-next="gift">Aage chalo</button>
+        </div>
+      </section>
+
+      <!-- 4. GIFT -> REEL -->
+      <section id="gift" class="screen play">
+        <div class="section-copy">
+          <p class="eyebrow">STEP 03</p>
+          <h2>Tumhara surprise 🎁</h2>
+          <p id="giftHint">Gift box ko tap karo</p>
+        </div>
+        <div class="gift-wrap">
+          <button id="giftBox" class="gift-box" aria-label="Open gift">
+            <span class="lid"></span><span class="body"><i class="rv"></i><i class="rh"></i></span>
+          </button>
+          <div id="giftReveal" class="gift-reveal hidden">
+            <div class="reel-teaser">🎬</div>
+            <p class="lead">Dress aur earrings nahi…<br>is baar kuch zyada dil se: ek chhoti si <b>reel</b> tumhare liye.</p>
+            <button class="btn primary" data-next="reel">Reel dekho 🎬</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. REEL (story style) -->
+      <section id="reel" class="screen reel-screen">
+        <div class="phone">
+          <div id="bars" class="bars"></div>
+          <div id="slide" class="slide"></div>
+          <div id="tapL" class="tap tap-l"></div>
+          <div id="tapR" class="tap tap-r"></div>
+          <button id="slideNext" class="btn ghost slide-next hidden">Aage ➜</button>
+          <button id="reelDone" class="btn primary reel-done hidden" data-next="letter">Ek chhoti si chitthi 💌</button>
+        </div>
+        <p class="phone-hint">Tap karke aage badho • dabaye rakho toh ruk jayega</p>
+      </section>
+
+      <!-- 6. LETTER -->
+      <section id="letter" class="screen">
+        <div class="card">
+          <p class="eyebrow">DIL SE LIKHA HUA</p>
+          <h2>Saniya 🤍</h2>
+          <div id="typed" class="typed"></div>
+          <button id="letterNext" class="btn primary hidden" data-next="ask">Aakhri sawaal… 👀</button>
+        </div>
+      </section>
+
+      <!-- 7. THE ASK -->
+      <section id="ask" class="screen">
+        <div class="center ask">
+          <div class="ring">💍</div>
+          <p class="eyebrow">AAKHRI SAWAAL</p>
+          <h1>Saniya,<br><em>kya tum meri banogi?</em></h1>
+          <p class="lead">Jo bhi jawab ho, main sunne ke liye ready hoon 🤍</p>
+          <div class="ask-btns">
+            <button id="yesBtn" class="btn primary big">Haan 💗</button>
+            <button id="waitBtn" class="btn ghost">Mujhe thoda time chahiye 🥺</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. FINAL (yes / wait) -->
+      <section id="final" class="screen">
+        <div class="card">
+          <div id="finalEmoji" class="final-emoji">🥹</div>
+          <p id="finalEye" class="eyebrow"></p>
+          <h2 id="finalTitle"></h2>
+          <div id="finalText" class="final-text"></div>
+          <div id="replyBox">
+            <textarea id="replyInput" maxlength="1000" placeholder="Mujhe kuch kehna hai… (optional)"></textarea>
+            <button id="sendReply" class="btn primary">Message bhejo 💌</button>
+            <p id="replyStatus" class="status"></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">Made with 🤍 by <strong>Nadaf</strong></footer>
+    <div id="toast" class="toast" role="status"></div>
+    <audio id="song" loop preload="none"></audio>
+  </div>
+  <script src="config.js"></script>
+  <script src="saniya.js"></script>
+</body>
+</html>
