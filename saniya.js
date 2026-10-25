@@ -89,7 +89,7 @@
     if (!cfg.enableAnalytics || !cfg.supabaseUrl || !cfg.supabaseAnonKey) return;
     const s = document.createElement("script");
     s.src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";
-    s.onload = () => { supa = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey); flush(); };
+    s.onload = () => { supa = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey, { auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false } }); flush(); };
     s.onerror = () => console.warn("Supabase library could not be loaded.");
     document.head.appendChild(s);
   }
