@@ -165,7 +165,7 @@ input{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:13
       });
 
       const article=document.createElement('article');article.className='recipient';
-      const base=new URL('index.html',location.href);base.search='';const link=base.href+'?to='+encodeURIComponent(r.recipient_id);
+      const base=new URL(r.recipient_id==='saniya-special'?'saniya.html':'index.html',location.href);base.search='';const link=r.recipient_id==='saniya-special'?base.href:base.href+'?to='+encodeURIComponent(r.recipient_id);
       article.innerHTML=`<div class="recipient-head"><div><h2>${esc(r.name)} <span class="id">#${esc(r.recipient_id)}</span></h2><div class="sub">${people.size} unique visitor${people.size===1?'':'s'} · ${re.length} tracked events · ${rm.length} reply${rm.length===1?'':'ies'}</div><div class="link">${esc(link)}</div><div class="rename"><input data-name-input="${esc(r.recipient_id)}" value="${esc(r.name)}" maxlength="60"><button class="btn small" data-rename="${esc(r.recipient_id)}">Save name</button></div></div><span class="pill">${esc(r.updated_at?fmt(r.updated_at):'No update time')}</span></div><div class="people"></div>`;
       article.querySelector(`[data-rename="${CSS.escape(r.recipient_id)}"]`).onclick=()=>renameRecipient(r.recipient_id);
       const peopleRoot=article.querySelector('.people');

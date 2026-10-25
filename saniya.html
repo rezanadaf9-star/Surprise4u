@@ -1,15 +1,15 @@
 <!doctype html>
-<html lang="hi">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#1a0510" />
+  <meta name="theme-color" content="#070b1f" />
   <meta name="robots" content="noindex,nofollow" />
-  <title>Saniya, ye sirf tumhare liye 🤍</title>
+  <title>Saniya, this one's for you 🌙</title>
   <link rel="icon" href="site-icons/favicon.ico" sizes="any" />
   <link rel="apple-touch-icon" sizes="180x180" href="site-icons/apple-touch-icon.png" />
-  <meta property="og:title" content="Saniya, ye sirf tumhare liye 🤍" />
-  <meta property="og:description" content="Ek chhoti si baat, dil se. 🌹" />
+  <meta property="og:title" content="Saniya, this one's for you 🌙" />
+  <meta property="og:description" content="Something small, from the heart. 🤍" />
   <meta property="og:image" content="site-icons/og-image.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,33 +18,34 @@
 </head>
 <body>
   <div id="app" class="app">
-    <div class="glow g1"></div><div class="glow g2"></div>
-    <div id="rain" class="rain" aria-hidden="true"></div>
+    <div id="sky" class="sky" aria-hidden="true"></div>
+    <div class="moon" aria-hidden="true"></div>
+    <div class="shooting s1" aria-hidden="true"></div><div class="shooting s2" aria-hidden="true"></div>
 
     <main class="stage">
 
       <!-- 1. START -->
       <section id="start" class="screen active">
         <div class="center">
-          <div class="heart-beat">🤍</div>
-          <p class="eyebrow">sirf tumhare liye</p>
-          <h1>Saniya<span class="script">,</span><br><em>ye tumhare liye hai</em></h1>
-          <p class="lead">Thoda time nikaal ke, akele mein, aaram se poora dekhna.<br>Aur haan, sound on rakhna 🎧</p>
-          <button class="btn primary" data-next="balloons">Shuru karein 🌹</button>
+          <div class="big-icon">🌙</div>
+          <p id="greeting" class="eyebrow">HELLO, SANIYA</p>
+          <h1>Saniya,<br><em>this one's for you</em></h1>
+          <p class="lead">Thoda time nikaal ke, aaram se dekhna.<br>Headphones laga lo toh aur achha.</p>
+          <button class="btn primary" data-next="stars">Start</button>
         </div>
       </section>
 
-      <!-- 2. HEART BALLOONS -->
-      <section id="balloons" class="screen play">
+      <!-- 2. STARS -->
+      <section id="stars" class="screen play">
         <div class="section-copy">
           <p class="eyebrow">STEP 01</p>
-          <h2>Pehle thodi si khushi 🎈</h2>
-          <p>Dil ko tap karo ✨</p>
+          <h2>A little happiness first ✨</h2>
+          <p>Tap the stars</p>
         </div>
-        <div id="balloonArea" class="area"></div>
-        <div id="balloonNextWrap" class="next-wrap hidden">
-          <p class="next-hint">👀 Aage kya hai? Tap karo…</p>
-          <button class="btn ghost" data-next="chocolates">Aage chalo</button>
+        <div id="starArea" class="area"></div>
+        <div id="starNextWrap" class="next-wrap hidden">
+          <p class="next-hint">👀 Curious what's next? Tap here…</p>
+          <button class="btn ghost" data-next="chocolates">Next</button>
         </div>
       </section>
 
@@ -52,82 +53,86 @@
       <section id="chocolates" class="screen play">
         <div class="section-copy">
           <p class="eyebrow">STEP 02</p>
-          <h2>Thodi si mithaas 🍫</h2>
-          <p>Chocolate kholo</p>
+          <h2>Something sweet 🍫</h2>
+          <p>Tap a chocolate to open it</p>
         </div>
         <div id="chocArea" class="area choc-area"></div>
         <div id="chocNextWrap" class="next-wrap hidden">
-          <p class="next-hint">✨ Bas ek aur cheez…</p>
-          <button class="btn ghost" data-next="gift">Aage chalo</button>
+          <p class="next-hint">✨ Almost there…</p>
+          <button class="btn ghost" data-next="gift">Next</button>
         </div>
       </section>
 
-      <!-- 4. GIFT -> REEL -->
+      <!-- 4. GIFT -->
       <section id="gift" class="screen play">
         <div class="section-copy">
           <p class="eyebrow">STEP 03</p>
-          <h2>Tumhara surprise 🎁</h2>
-          <p id="giftHint">Gift box ko tap karo</p>
+          <h2>Your gift 🎁</h2>
+          <p id="giftHint">Tap the gift box</p>
         </div>
         <div class="gift-wrap">
           <button id="giftBox" class="gift-box" aria-label="Open gift">
             <span class="lid"></span><span class="body"><i class="rv"></i><i class="rh"></i></span>
           </button>
           <div id="giftReveal" class="gift-reveal hidden">
-            <div class="reel-teaser">🎬</div>
-            <p class="lead">Dress aur earrings nahi…<br>is baar kuch zyada dil se: ek chhoti si <b>reel</b> tumhare liye.</p>
-            <button class="btn primary" data-next="reel">Reel dekho 🎬</button>
+            <div class="big-icon">🎵</div>
+            <p class="lead">Do cheezein hain, jo dekhte waqt mujhe tum yaad aayi.<br>Dhyan se dekhna.</p>
+            <button class="btn primary" data-next="reel">Watch</button>
           </div>
         </div>
       </section>
 
-      <!-- 5. REEL (story style) -->
+      <!-- 5. POSTS + STORY -->
       <section id="reel" class="screen reel-screen">
         <div class="phone">
           <div id="bars" class="bars"></div>
           <div id="slide" class="slide"></div>
           <div id="tapL" class="tap tap-l"></div>
           <div id="tapR" class="tap tap-r"></div>
-          <button id="slideNext" class="btn ghost slide-next hidden">Aage ➜</button>
-          <button id="reelDone" class="btn primary reel-done hidden" data-next="letter">Ek chhoti si chitthi 💌</button>
+          <div id="mediaBar" class="media-bar hidden"><button id="slideNext" class="btn ghost">Next ➜</button></div>
+          <button id="reelDone" class="btn primary reel-done hidden" data-next="letter">Read my letter</button>
         </div>
-        <p class="phone-hint">Tap karke aage badho • dabaye rakho toh ruk jayega</p>
+        <p id="phoneHint" class="phone-hint">Tap the right side to continue • hold to pause</p>
       </section>
 
-      <!-- 6. LETTER -->
+      <!-- 6. LETTER (chat) -->
       <section id="letter" class="screen">
-        <div class="card">
-          <p class="eyebrow">DIL SE LIKHA HUA</p>
-          <h2>Saniya 🤍</h2>
-          <div id="typed" class="typed"></div>
-          <button id="letterNext" class="btn primary hidden" data-next="ask">Aakhri sawaal… 👀</button>
+        <div class="chat-card">
+          <div class="chat-head">
+            <div class="avatar">N</div>
+            <div><div class="chat-name">Nadaf</div><div id="chatStatus" class="chat-status">online</div></div>
+          </div>
+          <div id="chat" class="chat"></div>
+          <button id="letterNext" class="btn primary hidden" data-next="ask">One last thing… 👀</button>
         </div>
       </section>
 
       <!-- 7. THE ASK -->
       <section id="ask" class="screen">
         <div class="center ask">
-          <div class="ring">💍</div>
-          <p class="eyebrow">AAKHRI SAWAAL</p>
-          <h1>Saniya,<br><em>kya tum meri banogi?</em></h1>
-          <p class="lead">Jo bhi jawab ho, main sunne ke liye ready hoon 🤍</p>
-          <div class="ask-btns">
-            <button id="yesBtn" class="btn primary big">Haan 💗</button>
-            <button id="waitBtn" class="btn ghost">Mujhe thoda time chahiye 🥺</button>
+          <div class="big-icon">💍</div>
+          <p class="eyebrow">ONE LAST QUESTION</p>
+          <h1>Saniya, kya tum meri<br><em>humsafar banogi,<br>poori zindagi ke liye?</em></h1>
+          <p class="lead">Whatever your answer is, I'm ready to hear it.</p>
+          <div class="ask-btns" id="askBtns">
+            <button id="yesBtn" class="btn primary big">Yes</button>
+            <span id="noHolder" class="no-holder"><button id="noBtn" class="btn ghost no">No</button></span>
           </div>
+          <p id="tease" class="tease"></p>
         </div>
       </section>
 
-      <!-- 8. FINAL (yes / wait) -->
+      <!-- 8. FINAL -->
       <section id="final" class="screen">
         <div class="card">
-          <div id="finalEmoji" class="final-emoji">🥹</div>
-          <p id="finalEye" class="eyebrow"></p>
-          <h2 id="finalTitle"></h2>
-          <div id="finalText" class="final-text"></div>
+          <div class="big-icon">🥹</div>
+          <p class="eyebrow">YOU SAID YES</p>
+          <h2>Thank you, Saniya</h2>
+          <p class="lead">Maine socha nahi tha ki itni khushi hogi.<br>Bas itna keh sakta hoon, tum mere liye bahut khaas ho.</p>
+          <p class="lead small">Ab tum bhi kuch kehna chahti ho toh yahan likh do.</p>
           <div id="replyBox">
-            <textarea id="replyInput" maxlength="1000" placeholder="Mujhe kuch kehna hai… (optional)"></textarea>
-            <button id="sendReply" class="btn primary">Message bhejo 💌</button>
+            <textarea id="replyInput" maxlength="1000" placeholder="Write something… (optional)"></textarea>
+            <button id="sendReply" class="btn primary">Send Message</button>
             <p id="replyStatus" class="status"></p>
           </div>
         </div>
