@@ -10,7 +10,7 @@ button,textarea{font:inherit}
 button{touch-action:manipulation;user-select:none;-webkit-user-select:none;cursor:pointer}
 .hidden{display:none!important}
 
-.app{min-height:100vh;position:relative;overflow:hidden;overflow:clip;contain:paint;
+.app{min-height:100vh;min-height:100dvh;position:relative;overflow:hidden;overflow:clip;
   background:radial-gradient(circle at 80% 8%,#3a2a7a 0,transparent 38%),radial-gradient(circle at 10% 90%,#4a1c66 0,transparent 40%),linear-gradient(180deg,#0a1030,var(--bg1) 75%)}
 .sky{position:absolute;inset:0;pointer-events:none}
 .sky i{position:absolute;border-radius:50%;background:#fff;animation:twinkle ease-in-out infinite}
@@ -23,8 +23,8 @@ button{touch-action:manipulation;user-select:none;-webkit-user-select:none;curso
 .s2{top:32%;left:85%;animation:shoot 9s ease-in 4s infinite}
 @keyframes shoot{0%{opacity:0;transform:translate(0,0) rotate(-30deg)}4%{opacity:1}14%{opacity:0;transform:translate(-300px,170px) rotate(-30deg)}100%{opacity:0}}
 
-.stage{position:relative;z-index:2;min-height:100vh}
-.screen{display:none;min-height:100vh;padding:70px 20px 90px;align-items:center;justify-content:center;position:relative}
+.stage{position:relative;z-index:2;min-height:100vh;min-height:100dvh}
+.screen{display:none;min-height:100vh;min-height:100dvh;padding:70px 20px 120px;align-items:center;justify-content:center;position:relative}
 .screen.active{display:flex;animation:screenIn .8s ease both}
 @keyframes screenIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 .screen.play{flex-direction:column;justify-content:flex-start;padding-top:56px}
@@ -51,8 +51,8 @@ h2{font-size:clamp(1.6rem,5.5vw,2.5rem);line-height:1.15;margin-bottom:12px}
 
 .section-copy{text-align:center;margin-bottom:8px}
 .section-copy p{color:var(--soft);margin-bottom:0}
-.area{position:relative;width:100%;max-width:520px;height:58vh;min-height:360px}
-.next-wrap{position:fixed;left:0;right:0;bottom:22px;text-align:center;z-index:30;animation:screenIn .6s ease both}
+.area{position:relative;width:100%;max-width:520px;height:50vh;height:50dvh;min-height:300px}
+.next-wrap{position:fixed;left:0;right:0;bottom:calc(36px + env(safe-area-inset-bottom,0px));padding:0 16px;text-align:center;z-index:30;animation:screenIn .6s ease both}
 .next-hint{font-size:.85rem;color:var(--soft);margin-bottom:8px}
 
 /* stars */
@@ -90,7 +90,7 @@ h2{font-size:clamp(1.6rem,5.5vw,2.5rem);line-height:1.15;margin-bottom:12px}
 
 /* posts + story */
 .reel-screen{flex-direction:column;padding:20px 12px}
-.phone{position:relative;width:min(94vw,400px);height:min(80vh,720px);border-radius:30px;overflow:hidden;background:#000;border:1px solid var(--line);box-shadow:0 30px 90px rgba(0,0,0,.65)}
+.phone{position:relative;width:min(94vw,400px);height:min(80vh,720px);height:min(78dvh,720px);border-radius:30px;overflow:hidden;background:#000;border:1px solid var(--line);box-shadow:0 30px 90px rgba(0,0,0,.65)}
 .bars{position:absolute;left:12px;right:12px;top:12px;display:flex;gap:4px;z-index:10}
 .bars span{flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.28);overflow:hidden}
 .bars span b{display:block;height:100%;width:0;background:#fff}
@@ -150,3 +150,7 @@ h2{font-size:clamp(1.6rem,5.5vw,2.5rem);line-height:1.15;margin-bottom:12px}
 .toast{position:fixed;left:50%;bottom:60px;transform:translate(-50%,20px);background:rgba(0,0,0,.75);color:#fff;padding:10px 18px;border-radius:99px;opacity:0;transition:.3s;z-index:100;pointer-events:none;font-size:.9rem}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 @media (max-width:520px){.moon{width:52px;height:52px;top:22px;right:18px;opacity:.7}}
+
+.lead.love{color:var(--gold);font-weight:600;margin-top:6px}
+
+.lead.love{color:var(--gold);font-weight:600;margin:14px 0 4px;line-height:1.7}
